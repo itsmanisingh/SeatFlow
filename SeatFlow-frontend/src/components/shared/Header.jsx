@@ -1,7 +1,11 @@
 import seatFlowLogo from "../../assets/seatflow-logo-light.png";
 import { FaSearch } from "react-icons/fa";
+import { useLocation } from "../../context/LocationContext";
+import map from "../../assets/pin.gif";
 
 const Header = () => {
+  const { location, loading, error } = useLocation();
+
   return (
     <div className="w-full text-sm bg-white">
       {/* Top Navbar */}
@@ -25,10 +29,19 @@ const Header = () => {
             </div>
           </div>
           {/* Right Part */}
-          <div className="flex item-center space-x-6">
-            <div className="text-sm font-medium cursor-pointer">
-              West Bengal &nbsp;
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center gap-2 text-sm font-medium cursor-pointer">
+              {location && (
+                <img
+                  src={map}
+                  alt="Location"
+                  className="w-8 h-8 object-contain"
+                />
+              )}
+
+              {location && <p>{location}</p>}
             </div>
+
             <button className="bg-[#f84464] cursor-pointer text-white px-4 py-1.5 rounded text-sm">
               Sign in
             </button>
