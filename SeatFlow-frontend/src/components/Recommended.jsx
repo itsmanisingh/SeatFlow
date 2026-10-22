@@ -8,12 +8,10 @@ const Recommended = () => {
           <h2 className="text-xl md:text-2xl font-semibold">
             Recommended Movies
           </h2>
-          <button
-            type="button"
-            className="text-sm md:text-base text-red-600 cursor-pointer hover:underline font-medium"
-          >
+
+          <span className="text-sm text-red-600 cursor-pointer hover:underline font-medium">
             See All
-          </button>
+          </span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

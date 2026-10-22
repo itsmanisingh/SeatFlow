@@ -3,33 +3,40 @@ import { banners } from "../../utils/constants";
 
 const BannerSlider = () => {
   const settings = {
-    centerMode: true,
-    centerPadding: "400px",
     slidesToShow: 1,
+    slidesToScroll: 1,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 3000,
     speed: 800,
     arrows: true,
     dots: true,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          arrows: false,
+        },
+      },
+    ],
   };
 
   return (
-    <div className="w-full bg-white py-6">
-      <div className="mx-auto px-4">
+    <section className="w-full bg-white py-3">
+      <div className="w-full px-4">
         <Slider {...settings}>
           {banners.map((banner, i) => (
             <div key={i} className="px-2">
               <img
                 src={banner}
-                alt={`banner-${banner.id}`}
-                className="w-full h-[300px] rounded-xl object-cover"
+                alt={`Promotional banner ${i + 1}`}
+                className="block w-full h-[160px] sm:h-[200px] md:h-[240px] rounded-lg object-cover"
               />
             </div>
           ))}
         </Slider>
       </div>
-    </div>
+    </section>
   );
 };
 
