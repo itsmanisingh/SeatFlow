@@ -1,4 +1,5 @@
 import MovieFilters from "../components/movies/MovieFilters";
+import MovieList from "../components/movies/MovieList";
 import BannerSlider from "../components/shared/BannerSlider";
 
 const Movies = () => {
@@ -7,6 +8,7 @@ const Movies = () => {
       <BannerSlider />
       <div className="flex flex-col md:flex-row bg-[#f5f5f5] min-h-screen md:px-[100px] pb-10 pt-8">
         <MovieFilters />
+        <MovieList />
       </div>
     </div>
   );
