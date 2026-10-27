@@ -2,6 +2,7 @@ import { useState } from "react";
 import { tabs } from "../utils/constants";
 import { IoIosLogOut, IoMdAdd } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
+import BookingHistory from "../components/profile/BookingHistory";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
@@ -12,6 +13,8 @@ const Profile = () => {
         <div className="max-w-7xl mx-auto flex flex-wrap gap-6 py-2 text-sm font-medium">
           {tabs.map((tab) => (
             <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
               className={`pb-1 cursor-pointer ${activeTab === tab ? "text-[#f74565]" : "text-gray-600 hover:text-black"}`}
             >
               {tab}
@@ -125,6 +128,9 @@ const Profile = () => {
               </div>
             </>
           )}
+
+          {/* Bookings Section */}
+          {activeTab === "Your Orders" && <BookingHistory />}
         </div>
       </div>
     </>
