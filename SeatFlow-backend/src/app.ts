@@ -11,17 +11,16 @@ app.use(
   cors({
     credentials: true,
     origin: ["http://localhost:5173"],
-  })
+  }),
 );
 app.use(cookieParser());
 app.use(express.json());
-
 
 // Global error handler (MUST be after all routes)
 
 app.get("/", (_, res) => {
   res.json({
-    message: "Welcome to BookMyScreen API",
+    message: "Welcome to SeatFlow API",
   });
 });
 
