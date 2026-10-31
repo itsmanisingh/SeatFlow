@@ -9,7 +9,7 @@ export const MovieSchema = z.object({
   languages: z.array(z.string()).nonempty("At least one Language is required"),
   certification: z.string(),
   posterUrl: z.string().url("Poster must be a valid URL"),
-  rating: z.string().min(0).max(10),
+  rating: z.number().min(0).max(10),
   votes: z.number().min(0),
   format: z.array(z.string()).default(["2D"]),
 });

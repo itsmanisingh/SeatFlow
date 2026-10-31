@@ -6,8 +6,8 @@ import { validate } from "../../middlewares/validate";
 const router = express.Router();
 
 router.post("/", validate(MovieSchema), MovieController.createMovie);
-router.post("/", MovieController.getMovies);
-router.post("/recommended", MovieController.getTopRecommendedMovies);
-router.post("/:id", MovieController.getMovieById);
+router.get("/", MovieController.getMovies);
+router.get("/recommended", MovieController.getTopRecommendedMovies);
+router.get("/:id", MovieController.getMovieById);
 
 export default router;
