@@ -5,8 +5,7 @@ import { MovieModel } from "../modules/movie/movie.model";
 import { TheaterModel } from "../modules/theater/theater.model";
 import { ShowModel } from "../modules/show/show.model";
 import { config } from "../config/config";
-import { generateSeatLayout } from "../utils/index"
-
+import { generateSeatLayout } from "../utils/index";
 
 const generatePriceMap = () =>
   new Map([
@@ -35,25 +34,43 @@ const toDateWithTime = (baseDate: Date, timeStr: string) => {
 };
 
 export const seedShow = async () => {
+  // NOTE:
+  // First seed your movies and then theaters.
+  // After that, select any two movies for which you want to create shows
+  // and paste their IDs in the movieIds array below.
+  // Also, pass your current state (e.g., "West Bengal") to filter theatres.
+  // This setup is only for testing purposes to avoid creating shows for all movies.
 
-// NOTE:
-// First seed your movies and then theaters.
-// After that, select any two movies for which you want to create shows
-// and paste their IDs in the movieIds array below.
-// Also, pass your current state (e.g., "West Bengal") to filter theatres.
-// This setup is only for testing purposes to avoid creating shows for all movies.
+  // Otherwise, you can also do the things below commented if you want to create shows for all movies and states
+  //  const movies = await MovieModel.find({});
+  //  const theatres = await TheaterModel.find({});
 
-// Otherwise, you can also do the things below commented if you want to create shows for all movies and states
-//  const movies = await MovieModel.find({});
-//  const theatres = await TheaterModel.find({});
-
-  
-  const movieIds = ["68e224451aeabaafaa43ac58", "68e224451aeabaafaa43ac57"];
+  const movieIds = ["6aec5efd71e128096890be7d", "6aec5efd71e128096890be7e"];
   const movies = await MovieModel.find({ _id: { $in: movieIds } });
   const theatres = await TheaterModel.find({ state: "West Bengal" });
 
+  // // Debugging
+  // console.log("\n========== DEBUGGING ==========");
+
+  // console.log("Requested Movie IDs:", movieIds);
+  // console.log("Movies found:", movies.length);
+
+  // movies.forEach((movie) => {
+  //   console.log("Movie:", movie.title, movie._id);
+  // });
+
+  // console.log("\nTheatres found:", theatres.length);
+
+  // theatres.forEach((theatre) => {
+  //   console.log("Theatre:", theatre.name, theatre.state, theatre._id);
+  // });
+
+  // console.log("================================\n");
+
   if (!movies.length || !theatres.length) {
-    console.error("Movies or theatres not found. Please check IDs or state name.");
+    console.error(
+      "Movies or theatres not found. Please check IDs or state name.",
+    );
     return;
   }
 
@@ -61,7 +78,8 @@ export const seedShow = async () => {
 
   for (const movie of movies) {
     for (const theatre of theatres) {
-      for (let d = 0; d < 2; d++) { // ✅ today and tomorrow
+      for (let d = 0; d < 2; d++) {
+        // ✅ today and tomorrow
         const showDate = today.add(d, "day");
         const formattedDate = showDate.format("DD-MM-YYYY");
         const numShows = Math.floor(Math.random() * 3) + 2; // 2–4 shows
@@ -77,7 +95,7 @@ export const seedShow = async () => {
             location: theatre.state,
             format: formats[Math.floor(Math.random() * formats.length)],
             audioType: "Dolby 7.1",
-            startTime: slot.start, 
+            startTime: slot.start,
             date: formattedDate, // ✅ "DD-MM-YYYY"
             priceMap: generatePriceMap(),
             seatLayout: generateSeatLayout(),
@@ -85,7 +103,7 @@ export const seedShow = async () => {
 
           await newShow.save();
           console.log(
-            `🎬 Show created for ${movie.title} at ${theatre.name} on ${formattedDate} (${slot.start} - ${slot.end})`
+            `🎬 Show created for ${movie.title} at ${theatre.name} on ${formattedDate} (${slot.start} - ${slot.end})`,
           );
         }
       }
